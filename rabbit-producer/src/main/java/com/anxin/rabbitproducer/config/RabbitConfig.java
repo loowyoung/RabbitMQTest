@@ -1,10 +1,7 @@
 package com.anxin.rabbitproducer.config;
 
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -72,6 +69,39 @@ public class RabbitConfig {
     }
 
     //#################topic模式########################
+    @Bean
+    public Queue topicA() {
+        return new Queue("topic.a");
+    }
 
+    @Bean
+    public Queue topicB() {
+        return new Queue("topic.b");
+    }
+
+    @Bean
+    public Queue topicC() {
+        return new Queue("topic.c");
+    }
+
+    @Bean
+    public TopicExchange topicExchange() {
+        return new TopicExchange("topicExchange");
+    }
+
+    @Bean
+    public Binding bindTopicWithA() {
+        return BindingBuilder.bind(topicA()).to(topicExchange()).with("topic.msg");
+    }
+
+    @Bean
+    public Binding bindTopicWithB() {
+        return BindingBuilder.bind(topicB()).to(topicExchange()).with("topic.#");
+    }
+
+    @Bean
+    public Binding bindTopicWithC() {
+        return BindingBuilder.bind(topicC()).to(topicExchange()).with("topic.*.z");
+    }
 
 }

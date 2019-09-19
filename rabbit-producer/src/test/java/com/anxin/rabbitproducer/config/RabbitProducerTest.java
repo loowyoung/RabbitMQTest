@@ -29,4 +29,19 @@ public class RabbitProducerTest {
         producer.fanoutSend();
     }
 
+    @Test
+    public void testTopic1Send() {
+        producer.topic1Swnd();
+    }
+
+    @Test
+    public void testTopic2Send() {
+        producer.topic2Swnd();
+    }
+
+    @Test
+    public void testTopic3Send() {
+        producer.topic3Swnd();
+    }
+
 }
