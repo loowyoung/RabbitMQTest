@@ -1,5 +1,6 @@
 package com.anxin.shirotest.controller;
 
+import com.anxin.shirotest.config.ShiroCasConfiguration;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -9,10 +10,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.anxin.shirotest.pojo.ResponseBo;
 import com.anxin.shirotest.pojo.User;
@@ -20,11 +18,6 @@ import com.anxin.shirotest.util.MD5Utils;
 
 @Controller
 public class LoginController {
-
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
 
 	@PostMapping("/login")
 	@ResponseBody
@@ -44,6 +37,12 @@ public class LoginController {
 		} catch (AuthenticationException e) {
 			return ResponseBo.error("认证失败！");
 		}
+	}
+
+	@RequestMapping(value="/login",method= RequestMethod.GET)
+	public String loginForm(Model model){
+		model.addAttribute("user", new User());
+		return "redirect:/index";
 	}
 
 	@RequestMapping("/")
