@@ -38,6 +38,8 @@ public class ShiroCasConfiguration {
     public static final String casFilterUrlPattern = "/index";
     // 登录地址
     public static final String loginUrl = casLoginUrl + "?service=" + shiroServerUrlPrefix + casFilterUrlPattern;
+    // 注销地址
+    public static final String logoutUrl = casLogoutUrl + "?service=" + shiroServerUrlPrefix;
 
     @Bean(name = "myShiroCasRealm")
     public ShiroCasRealm myShiroCasRealm() {

@@ -7,6 +7,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +44,14 @@ public class LoginController {
 	public String loginForm(Model model){
 		model.addAttribute("user", new User());
 		return "redirect:/index";
+	}
+
+	@RequestMapping(value="/logout",method= RequestMethod.GET)
+	public String logout(Model model){
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		model.addAttribute("msg","安全退出！");
+		return "redirect:" + ShiroCasConfiguration.logoutUrl;
 	}
 
 	@RequestMapping("/")
